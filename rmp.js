@@ -94,7 +94,7 @@ function getRatingLink(tid){
         }, function(response){
             if(response){
 				const element = response.match(/<div class="grade" title="">[0-9.]{3}<\/div>/g);
-				const rating = element ? element[0].match(/[0-9.]{3}/g) : null;
+                const rating = element ? element[0].match(/[0-9.]{3}/g) : null;
 				resolve(rating ? rating[0] : null);
             }
         });
