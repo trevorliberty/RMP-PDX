@@ -1,0 +1,19 @@
+{
+	"name": "Portland State RateMyProfessors",
+	"description": "Displays professors' RateMyProfessors ratings in the online course listings for Portland State University.",
+	"version": "1.0",
+	"manifest_version": 2,
+	"permissions": [
+		"*://*.ratemyprofessors.com/*"
+	],
+
+	"content_scripts": [ {
+        "matches":["https://app.banner.pdx.edu/*"],
+		"js":["jquery.js", "rmp.js"]
+
+	}],
+    "background": {
+        "scripts":["jquery.js", "background.js"],
+        "persistent": false
+    }
+}
