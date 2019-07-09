@@ -110,7 +110,7 @@ function embedLink(professor, ratingLink) {
         const hex = getHexColor(ratingLink.rate);
         //alert(ratingLink.rate)
         //const hex = "F7CC1E"
-        professor.innerHTML = `${professor.innerText} (<span style="color: #${hex}">${ratingLink.rate}</span>)`;
+        professor.innerHTML = `${professor.innerText} (<a href=${ratingLink.URL} style="color: #${hex}">${ratingLink.rate}</a>)`;
     } else {
         console.log(`Could not get rating for ${professor.innerText}`);
     }
