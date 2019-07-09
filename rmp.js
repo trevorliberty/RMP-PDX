@@ -91,7 +91,7 @@ function getRatingLink(tid) {
             if (response) {
                 const element = response.match(/<div class="grade" title="">[0-9.]{3}<\/div>/g);
                 const rating = element ? element[0].match(/[0-9.]{3}/g) : null;
-                const link = `${url + '?=' + tid}`;
+                const link = `${url + '?tid=' +tid} `;
 
                 const ratingLink = {
                     rate: rating,
