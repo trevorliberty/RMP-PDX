@@ -22,18 +22,20 @@ $(document).ready(function(){
  * \n character in each block  */
 function startScript(){
     const arr = $("td:nth-child(11)");
-    var nameStr = arr[0].innerText;
-    //if there is more than 1 professor:
-    var nameSplit = nameStr.split('\n');
-    //if nameSplit[] has newline char at lastindex 
-    --nameSplit.length;
-    //Anonymous function with nameSplit[i]
-    Array.from(nameSplit).forEach(function(professor){
-        getTID(professor).then(function(tid){
-            return getRatingLink(tid);
-        }).then(function(ratingLink){
-            embedLink(arr[0], ratingLink);
-            //embedLink(professor, ratingLink);
+    Array.from(arr).forEach(function(subgroup){
+        var nameStr = subgroup.innerText;
+        //if there is more than 1 professor:
+        var nameSplit = nameStr.split('\n');
+        //if nameSplit[] has newline char at lastindex 
+        --nameSplit.length;
+        //Anonymous function with nameSplit[i]
+        Array.from(nameSplit).forEach(function(professor){
+            getTID(professor).then(function(tid){
+                return getRatingLink(tid);
+            }).then(function(ratingLink){
+                embedLink(subgroup, ratingLink);
+                //embedLink(professor, ratingLink);
+            });
         });
     });
 }
@@ -75,8 +77,13 @@ function getRatingLink(tid){
             if(response){
 				const element = response.match(/<div class="grade" title="">[0-9.]{3}<\/div>/g);
                 const rating = element ? element[0].match(/[0-9.]{3}/g) : null;
-                link = `${url+'?='+tid}`;
-				resolve(rating ? rating[0] : null);
+                const link = `${url+'?='+tid}`;
+                const ratingLink = {
+                    rate: rating,
+                    URL: link 
+                }
+                //resolve(rating ? rating[0] : null);
+                resolve(ratingLink ? ratingLink.rate[0] : null);
             }
         });
     });
