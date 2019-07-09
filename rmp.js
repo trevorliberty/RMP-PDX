@@ -11,11 +11,16 @@ $(document).ready(function () {
                     if ($("#table1 > tbody > tr:nth-child(1)").length) {
                         //If there is rendered selector, call startScript function
                         startScript();
-                        $("td:nth-child(11)").hover(
+                        /*$("td:nth-child(11)").hover(
                             function () {
                                 $(this).css("background", "yellow");
                             }, function () {
                                 $(this).css("background", "");
+                            }
+                        )*/
+                        $("td:nth-child(11) > a").hover(
+                            function(){
+
                             }
                         )
                     }
@@ -110,7 +115,8 @@ function embedLink(professor, ratingLink) {
         const hex = getHexColor(ratingLink.rate);
         //alert(ratingLink.rate)
         //const hex = "F7CC1E"
-        professor.innerHTML = `${professor.innerText} (<a href=${ratingLink.URL} style="color: #${hex}">${ratingLink.rate}</a>)`;
+        professor.innerHTML = `${professor.innerText} (<a href=${ratingLink.URL} style="color: #${hex}">${ratingLink.rate}</a>
+        <iframe id="hover" src="${ratingLink.URL}</iframe>`;
     } else {
         console.log(`Could not get rating for ${professor.innerText}`);
     }
