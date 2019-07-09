@@ -1,69 +1,50 @@
-/*$(document).ready(function(){
-    (async function(x){ 
-    while(!($("td:nth-child(11)"))){
-        await new Promise(r=>setTimeout(r,500));
-    }
-    })();
-});*/
-/*var interval = setInterval(function(){
-    if($("#table1")){
-        clearInterval(interval);
-        startScript();
-    }
-}, 500);*/
-/*$(document).ready(function(){
-    $("#search-go").click(function(){
-        alert("fuck you");
-        var interval=setInterval(function(){
-            if($("#table1 > thead > tr > th.sort-disabled.instructor-col.ui-state-default > div.title")){
-                clearInterval(interval);
-                alert("fuck off");
-            }
-        }, 500);
-    });
-});
-startScript();*/
+/**
+ *  Entry Point
+ *  Waits for DOM to be rendered 
+ *  When user clicks 'Search', waits for selector to be initialized
+ */
 $(document).ready(function(){
     $("#search-go").click(function(){
-        alert("clicked");
         let timerId = setTimeout(function handle(){
-            alert('timed');
-            //if(!$("#results-terms > div > h3 > span > span")){
             if($("#table1 > tbody > tr:nth-child(1)").length){
-                console.log("Here");
+                //If there is rendered selector, call startScript function
                 startScript();
             }
             else{
-            //    alert("no");
                 timerId = setTimeout(handle,1000);
             }
         }, 1000);
     });
 });
 
-//issue with this is that I can't know when the initial page is finished loading....going to have to look into exception handling in js and see where I am getting to 
-//$(window).ready(function(){
- //   $('#class-search-center-content').on('load',function(){
+/** Grabs all name in instructor fields
+ * Puts them into an array and removes the 
+ * \n character in each block  */
 function startScript(){
     const arr = $("td:nth-child(11)");
-    var nameStr = arr[0].innerText;
-    //if there is more than 1 professor:
-    var nameSplit = nameStr.split('\n');
-    //if nameSplit[] has newline char at lastindex 
-    --nameSplit.length;
-    //call fn() with nameSplit[i]
-    Array.from(nameSplit).forEach(function(professor){
-        getTID(professor).then(function(tid){
-            return getRatingLink(tid);
-        }).then(function(ratingLink){
-            embedLink(professor, ratingLink);
+    Array.from(arr).forEach(function(subgroup){
+        var nameStr = subgroup.innerText;
+        //if there is more than 1 professor:
+        var nameSplit = nameStr.split('\n');
+        //if nameSplit[] has newline char at lastindex 
+        --nameSplit.length;
+        //Anonymous function with nameSplit[i]
+        Array.from(nameSplit).forEach(function(professor){
+            getTID(professor).then(function(tid){
+                return getRatingLink(tid);
+            }).then(function(ratingLink){
+                embedLink(subgroup, ratingLink);
+                //embedLink(professor, ratingLink);
+            });
         });
     });
 }
+/** Grabs the TID from RateMyProfessor
+ * Splits the first and last name a professor removes middle initial */
 function getTID(professor){
     const lastName = professor.substring(0, professor.indexOf(",")).trim();
     const firstName = professor.substring(professor.indexOf(",")+1,professor.lastIndexOf(" ")).trim();
-    //getShit
+    /**Returns the TID of the professor if they exist in rate my professor */
     return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage({
             method: "POST",
@@ -86,16 +67,23 @@ function getTID(professor){
     });
 }
 function getRatingLink(tid){
+    const url = "http://www.ratemyprofessors.com/ShowRatings.jsp";
     return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage({
             method: "POST",
-            url: "http://www.ratemyprofessors.com/ShowRatings.jsp",
+            url: `${url}`,//"http://www.ratemyprofessors.com/ShowRatings.jsp",
             data: `tid=${tid}`
         }, function(response){
             if(response){
 				const element = response.match(/<div class="grade" title="">[0-9.]{3}<\/div>/g);
                 const rating = element ? element[0].match(/[0-9.]{3}/g) : null;
-				resolve(rating ? rating[0] : null);
+                const link = `${url+'?='+tid}`;
+                const ratingLink = {
+                    rate: rating,
+                    URL: link 
+                }
+                //resolve(rating ? rating[0] : null);
+                resolve(ratingLink ? ratingLink.rate[0] : null);
             }
         });
     });
