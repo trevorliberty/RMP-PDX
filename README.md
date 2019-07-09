@@ -1,5 +1,4 @@
 # RMP-PDX
-tester tehehe
 Rate My Professor Chrome Extension for Portland State University
 
 # License
