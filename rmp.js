@@ -9,6 +9,13 @@ $(document).ready(function(){
             if($("#table1 > tbody > tr:nth-child(1)").length){
                 //If there is rendered selector, call startScript function
                 startScript();
+                $("td:nth(child)".hover(
+                    function(){
+                        $(this).css("background", "yellow");
+                    }, function(){
+                        $(this).css("background", "");
+                    }
+                ))
             }
             else{
                 timerId = setTimeout(handle,1000);
@@ -78,17 +85,20 @@ function getRatingLink(tid){
 				const element = response.match(/<div class="grade" title="">[0-9.]{3}<\/div>/g);
                 const rating = element ? element[0].match(/[0-9.]{3}/g) : null;
                 const link = `${url+'?='+tid}`;
+
                 const ratingLink = {
                     rate: rating,
                     URL: link 
                 }
                 //resolve(rating ? rating[0] : null);
-                resolve(ratingLink ? ratingLink.rate[0] : null);
+                resolve(ratingLink);
+                //resolve(ratingLink ? ratingLink.rate[0] : null);
             }
         });
     });
 }
 function embedLink(professor, ratingLink){
+
     if(ratingLink) {
         const hex = "B2CF35";
 		professor.innerHTML = `${professor.innerText} (<span style="color: #${hex}">${ratingLink}</span>)`;
