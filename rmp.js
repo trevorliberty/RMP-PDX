@@ -5,24 +5,27 @@
  */
 $(document).ready(function () {
     $("#search-go").click(function () {
-        let timerId = setTimeout(function handle() {
-            if ($("#table1 > tbody > tr:nth-child(1)").length) {
-                //If there is rendered selector, call startScript function
-                startScript();
-                $("td:nth-child(11)").hover(
-                    function () {
-                        $(this).css("background", "yellow");
-                    }, function () {
-                        $(this).css("background", "");
-                    }
-                )
-            }
-            else {
-                timerId = setTimeout(handle, 1000);
-            }
+        setInterval(function () {
+            let timerId = setTimeout(function handle() {
+                if ($("#table1 > tbody > tr:nth-child(1)").length) {
+                    //If there is rendered selector, call startScript function
+                    startScript();
+                    $("td:nth-child(11)").hover(
+                        function () {
+                            $(this).css("background", "yellow");
+                        }, function () {
+                            $(this).css("background", "");
+                        }
+                    )
+                }
+                else {
+                    timerId = setTimeout(handle, 1000);
+                }
+            }, 1000);
         }, 1000);
+
     });
-});
+})
 
 /** Grabs all name in instructor fields
  * Puts them into an array and removes the
