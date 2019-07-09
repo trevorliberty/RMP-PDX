@@ -19,7 +19,7 @@ $(document).ready(function () {
                             }
                         )*/
                         $("td:nth-child(11) > a").hover(
-                            function(){
+                            function () {
 
                             }
                         )
@@ -28,7 +28,7 @@ $(document).ready(function () {
                         timerId = setTimeout(handle, 1000);
                     }
                 }, 1000);
-            }, 1700);
+            }, 2000);
 
         }
     });
@@ -115,12 +115,7 @@ function embedLink(professor, ratingLink) {
         const hex = getHexColor(ratingLink.rate);
         //alert(ratingLink.rate)
         //const hex = "F7CC1E"
-<<<<<<< HEAD
-        professor.innerHTML = `${professor.innerText} (<a href=${ratingLink.URL} style="color: #${hex}">${ratingLink.rate}</a>
-        <iframe id="hover" src="${ratingLink.URL}</iframe>`;
-=======
-        professor.innerHTML = `${professor.innerText} (<a href=${ratingLink.URL} target="_blank" style="color: #${hex}">${ratingLink.rate}</a>)`;
->>>>>>> 27a9ecd7e366995b5293380f8536a296f5a77576
+        professor.innerHTML = `${professor.innerText} (<a href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}</a>)`;
     } else {
         console.log(`Could not get rating for ${professor.innerText}`);
     }
