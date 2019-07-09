@@ -28,7 +28,7 @@ $(document).ready(function () {
                         timerId = setTimeout(handle, 1000);
                     }
                 }, 1000);
-            }, 3000);
+            }, 1700);
 
         }
     });
@@ -90,13 +90,13 @@ function getRatingLink(tid) {
     return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage({
             method: "POST",
-            url: `${url}`,//"http://www.ratemyprofessors.com/ShowRatings.jsp",
+            url: `${url}`,//"http://www.ratemyprofessors.com/ShowRatings.jsp?tid=",
             data: `tid=${tid}`
         }, function (response) {
             if (response) {
                 const element = response.match(/<div class="grade" title="">[0-9.]{3}<\/div>/g);
                 const rating = element ? element[0].match(/[0-9.]{3}/g) : null;
-                const link = `${url + '?tid=' +tid} `;
+                const link = `${url + '?tid=' + tid}`;
 
                 const ratingLink = {
                     rate: rating,
@@ -115,8 +115,12 @@ function embedLink(professor, ratingLink) {
         const hex = getHexColor(ratingLink.rate);
         //alert(ratingLink.rate)
         //const hex = "F7CC1E"
+<<<<<<< HEAD
         professor.innerHTML = `${professor.innerText} (<a href=${ratingLink.URL} style="color: #${hex}">${ratingLink.rate}</a>
         <iframe id="hover" src="${ratingLink.URL}</iframe>`;
+=======
+        professor.innerHTML = `${professor.innerText} (<a href=${ratingLink.URL} target="_blank" style="color: #${hex}">${ratingLink.rate}</a>)`;
+>>>>>>> 27a9ecd7e366995b5293380f8536a296f5a77576
     } else {
         console.log(`Could not get rating for ${professor.innerText}`);
     }
