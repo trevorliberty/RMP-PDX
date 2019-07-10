@@ -1,7 +1,7 @@
 # RMP-PDX
 Rate My Professor Chrome Extension for Portland State University
 # Authors
- <span style="font-size:16.5px;">
+ <span style="font-size:20px;">
 
 * Trevor Liberty
 * Joe Leland
