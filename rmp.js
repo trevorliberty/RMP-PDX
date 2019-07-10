@@ -19,15 +19,15 @@ $(document).ready(function () {
                             $(this).css("background", "yellow");
                         }, function () {
                             $(this).css("background", "");
-                        })*/ $("td:nth-child(11) > a").hover(
+                        })*/
+                    $("td:nth-child(11) > a").hover(
                         function () {
 
                         }
                     )
                     $(".paging-control next ltr enabled, .paging-control previous ltr enabled").click(test(e))
-                }
-                else {
-                    timerId = setTimeout(handle, 0);
+                } else {
+                    timerId = setTimeout(handle, 1000);
                 }
 
 
@@ -96,12 +96,13 @@ function getTID(professor) {
         });
     });
 }
+
 function getRatingLink(tid) {
     const url = "http://www.ratemyprofessors.com/ShowRatings.jsp";
     return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage({
             method: "POST",
-            url: `${url}`,//"http://www.ratemyprofessors.com/ShowRatings.jsp?tid=",
+            url: `${url}`, //"http://www.ratemyprofessors.com/ShowRatings.jsp?tid=",
             data: `tid=${tid}`
         }, function (response) {
             if (response) {
@@ -120,17 +121,20 @@ function getRatingLink(tid) {
         });
     });
 }
+
 function embedLink(professor, ratingLink) {
 
     if (ratingLink) {
-        const hex = getHexColor(ratingLink.rate);
-        //alert(ratingLink.rate)
-        //const hex = "F7CC1E"
-        professor.innerHTML = `${professor.innerText} (<a href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}</a>)`;
+        if (!professor.textContent.includes(ratingLink.rate)) {
+            const hex = getHexColor(ratingLink.rate);
+            professor.innerHTML = `${professor.innerText} (<a href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}</a>)`;
+            console.log("test new");
+        }
     } else {
         console.log(`Could not get rating for ${professor.innerText}`);
     }
 }
+
 function getHexColor(ratingLink) {
     ratingLink = Number(ratingLink);
     if (ratingLink >= 4.0) {
