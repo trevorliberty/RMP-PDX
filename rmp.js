@@ -4,36 +4,47 @@
  *  When user clicks 'Search', waits for selector to be initialized
  */
 $(document).ready(function () {
-    $("#search-go, #s2id_txt_subject, #txt_courseNumber, #txt_keywordlike, #txt_keywordexact").on('keypres click', function (e) {
+    $("#search-go, #s2id_txt_subject, #txt_courseNumber, #txt_keywordlike, #txt_keywordexact").on('keypress click', function test(e) {
         if (e.which === 13 || e.type === 'click') {
-            setInterval(function () {
-                let timerId = setTimeout(function handle() {
-                    if ($("#table1 > tbody > tr:nth-child(1)").length) {
-                        //If there is rendered selector, call startScript function
-                        startScript();
-                        /*$("td:nth-child(11)").hover(
-                            function () {
-                                $(this).css("background", "yellow");
-                            }, function () {
-                                $(this).css("background", "");
-                            }
-                        )*/
-                        $("td:nth-child(11) > a").hover(
-                            function () {
+            //setInterval(function () {
 
-                            }
-                        )
-                    }
-                    else {
-                        timerId = setTimeout(handle, 1000);
-                    }
-                }, 1000);
-            }, 2000);
+            let timerId = setTimeout(function handle() {
+                if ($("#table1 > tbody > tr:nth-child(1)").length) {
+                    //If there is rendered selector, call startScript function
+                    setTimeout(function () {
+                        startScript();
+                    }, 0)
+                    /*$("td:nth-child(11)").hover(
+                        function () {
+                            $(this).css("background", "yellow");
+                        }, function () {
+                            $(this).css("background", "");
+                        })*/ $("td:nth-child(11) > a").hover(
+                        function () {
+
+                        }
+                    )
+                    $(".paging-control next ltr enabled, .paging-control previous ltr enabled").click(test(e))
+                }
+                else {
+                    timerId = setTimeout(handle, 0);
+                }
+
+
+            }, 1000);
+
+            //}, 2000);
+
 
         }
+
     });
 
+
+
 })
+
+
 
 
 /** Grabs all name in instructor fields
