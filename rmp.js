@@ -51,8 +51,13 @@ function startScript() {
         });
     });
 }
-/** Grabs the TID from RateMyProfessor
- * Splits the first and last name a professor removes middle initial */
+/**
+ * Gets the TID for passed in professor string
+ * POST request to ratemyprofessor
+ * Uses regex to grab the correct professor if exists
+ * @param {string} professor 
+ * @returns {Number: tid}
+ */
 function getTID(professor) {
     const lastName = professor.substring(0, professor.indexOf(",")).trim();
     const firstName = professor.substring(professor.indexOf(",") + 1, professor.lastIndexOf(" ")).trim();
@@ -78,7 +83,12 @@ function getTID(professor) {
         });
     });
 }
-
+/**
+ * Returns ratingLink, which houses the rating, URL, and
+ * tooltip information(popUp)
+ * @param {Number} tid 
+ * @returns {object}
+ */
 function getRatingLink(tid) {
     const url = "http://www.ratemyprofessors.com/ShowRatings.jsp";
     return new Promise((resolve, reject) => {
@@ -92,27 +102,24 @@ function getRatingLink(tid) {
                 const rating = element ? element[0].match(/[0-9.]{3}/g) : null;
                 const link = `${url + '?tid=' + tid}`;
                 var block = $('#mainContent > div.right-panel > div.rating-breakdown', response).text();
-                dd
-
-
-
-
-
-
-
+                const embed = getPopup(block);
                 const ratingLink = {
                     rate: rating,
-                    URL: link
-
+                    URL: link,
+                    popUp: embed
                 }
                 resolve(ratingLink);
             }
         });
     });
 }
-
+/**
+ * Returns an object that contains the information inside of the 
+ * div for a professor page on RateMyProfessor. Used for tooltip
+ * @param {string} block 
+ * @returns {object}
+ */
 function getPopup(block) {
-
     var str = block.substring(block.indexOf('Overall Quality')).trim();
     var arr = str.split('\n');
     (function () {
@@ -121,11 +128,16 @@ function getPopup(block) {
             return (e && e != 'See how other students describe this professor.' && e != 'Choose your tags');
         });
     })();
-    var tags = arr.splice(6);
+    const Tags = arr.splice(6);
+
 
     const embed = {
-        overall
+        overall: arr[0] + ': ' + arr[1],
+        takeAgain: arr[2] + ': ' + arr[3],
+        difficulty: arr[4] + ': ' + arr[5],
+        tags: Tags
     }
+    return embed;
 }
 
 function embedLink(professor, ratingLink) {
@@ -133,8 +145,13 @@ function embedLink(professor, ratingLink) {
     if (ratingLink) {
         if (!professor.textContent.includes(ratingLink.rate)) {
             const hex = getHexColor(ratingLink.rate);
-            professor.innerHTML = `${professor.innerText} (<a href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}</a>)`;
-            console.log("test new");
+            professor.innerHTML =
+                `${professor.innerText} (<a href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">
+                    ${ratingLink.rate}
+                </a>)
+                <div class="popUp">
+                    <a href="#" class="popUp">Hover</a>
+                </div>`;
         }
     } else {
         console.log(`Could not get rating for ${professor.innerText}`);
