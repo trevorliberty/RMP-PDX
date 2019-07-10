@@ -6,23 +6,17 @@
 $(document).ready(function () {
     $("#search-go, #s2id_txt_subject, #txt_courseNumber, #txt_keywordlike, #txt_keywordexact").on('keypress click', function test(e) {
         if (e.which === 13 || e.type === 'click') {
-            //setInterval(function () {
-
             let timerId = setTimeout(function handle() {
                 if ($("#table1 > tbody > tr:nth-child(1)").length) {
                     //If there is rendered selector, call startScript function
                     setTimeout(function () {
                         startScript();
                     }, 0)
-                    /*$("td:nth-child(11)").hover(
-                        function () {
-                            $(this).css("background", "yellow");
-                        }, function () {
-                            $(this).css("background", "");
-                        })*/
                     $("td:nth-child(11) > a").hover(
                         function () {
-
+                            /**
+                             * Add in html rendering for returned response in getRatingLink
+                             */
                         }
                     )
                     $(".paging-control next ltr enabled, .paging-control previous ltr enabled").click(test(e))
@@ -32,21 +26,9 @@ $(document).ready(function () {
 
 
             }, 1000);
-
-            //}, 2000);
-
-
         }
-
     });
-
-
-
 })
-
-
-
-
 /** Grabs all name in instructor fields
  * Puts them into an array and removes the
  * \n character in each block  */
@@ -109,17 +91,41 @@ function getRatingLink(tid) {
                 const element = response.match(/<div class="grade" title="">[0-9.]{3}<\/div>/g);
                 const rating = element ? element[0].match(/[0-9.]{3}/g) : null;
                 const link = `${url + '?tid=' + tid}`;
+                var block = $('#mainContent > div.right-panel > div.rating-breakdown', response).text();
+                dd
+
+
+
+
+
+
 
                 const ratingLink = {
                     rate: rating,
                     URL: link
+
                 }
-                //resolve(rating ? rating[0] : null);
                 resolve(ratingLink);
-                //resolve(ratingLink ? ratingLink.rate[0] : null);
             }
         });
     });
+}
+
+function getPopup(block) {
+
+    var str = block.substring(block.indexOf('Overall Quality')).trim();
+    var arr = str.split('\n');
+    (function () {
+        arr = arr.map(el => el.trim());
+        arr = arr.filter(function (e) {
+            return (e && e != 'See how other students describe this professor.' && e != 'Choose your tags');
+        });
+    })();
+    var tags = arr.splice(6);
+
+    const embed = {
+        overall
+    }
 }
 
 function embedLink(professor, ratingLink) {
