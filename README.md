@@ -1,6 +1,12 @@
 # RMP-PDX
 Rate My Professor Chrome Extension for Portland State University
+# Authors
+ <span style="font-size:16.5px;">
 
+* Trevor Liberty
+* Joe Leland
+
+</span>
 # License
 The MIT License (MIT)
 
