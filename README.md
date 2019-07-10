@@ -7,6 +7,7 @@ Rate My Professor Chrome Extension for Portland State University
 * Joe Leland
 
 </span>
+
 # License
 The MIT License (MIT)
 
