@@ -14,7 +14,8 @@ $(document).ready(function () {
           setTimeout(function () {
             startScript();
 
-          }, 0);
+          }, 1000)
+
           $("td:nth-child(11) > a").hover(function () {
             /**
              * Add in html rendering for returned response in getRatingLink
@@ -168,44 +169,38 @@ $(document).ready(function () {
       (<a id="popUp" class="popUp" href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}
                 </a>)`;
 
-        //var ontent = document.createTextNode(temp.overall);
-        var Hover = document.createTextNode(`${ratingLink.popUp.overall+'\n'}
-                                             ${ratingLink.popUp.takeAgain+'\n'}
-                                             ${ratingLink.popUp.difficulty+'\n'}`);
+
+        var Hover = document.createTextNode(
+          `${ratingLink.popUp.overall+'\n'}
+           ${ratingLink.popUp.takeAgain+'\n'}
+           ${ratingLink.popUp.difficulty+'\n'}`
+        );
+
+        $(professor).data(ratingLink);
         const sub = document.createElement("div");
         sub.id = `${ratingLink.URL}`
         sub.appendChild(Hover);
-        sub.setAttribute("class", ratingLink.URL);
+        sub.setAttribute("class", 'form-popup');
         professor.appendChild(sub);
         var ref = $(professor);
         var popup = $(sub);
         popup.hide();
-        ref.hover(function (e) {
-          var target = $(e.target)
-          if (target.is(popup)) return;
-          if (target.is(ref)) {
-            var popper = new Popper(ref, popup, {
-              placement: 'top',
-              onCreate: function (data) {
-                popup.show();
-                console.log(data);
+        ref.hover(function () {
+          var popper = new Popper(ref, popup, {
+            placement: 'top',
+            onCreate: function (data) {
+              popup.show();
+              console.log(data);
+            },
+            modifiers: {
+              flip: {
+                behavior: ['left', 'right', 'top', 'bottom']
               },
-              removeOnDestroy: true,
-              modifiers: {
-                flip: {
-                  behavior: ['left', 'right', 'top', 'bottom']
-                },
-                offset: {
-                  enabled: true,
-                  offset: '0,10'
-                }
-              }
-            });
-          } else {
-            popup.hide()
-          }
+            }
+          });
 
-          popup.hide()
+        }, function () {
+          popup.hide();
         });
         /*
         $(sub).tooltip({
@@ -221,6 +216,8 @@ $(document).ready(function () {
     }
   }
 
+
+
   function getHexColor(ratingLink) {
     ratingLink = Number(ratingLink);
     if (ratingLink >= 4.0) {
@@ -232,3 +229,9 @@ $(document).ready(function () {
     }
   }
 });
+
+const styles = {
+  mystyle: {
+
+  }
+}

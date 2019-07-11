@@ -9,7 +9,7 @@
 
 	"content_scripts": [{
 		"matches": ["https://app.banner.pdx.edu/*"],
-		"css": ["jquery-ui.css"],
+		"css": ["jquery-ui.css", "my.css"],
 		"js": ["jquery.js", "jquery-ui.js", "rmp.js", "popper.js", "tooltip.js"]
 
 	}],
