@@ -161,61 +161,33 @@ $(document).ready(function () {
 
   function embedLink(professor, ratingLink) {
     if (ratingLink) {
+      console.log(ratingLink.popUp.overall);
       let temp = ratingLink.popUp;
       if (!professor.textContent.includes(ratingLink.rate)) {
         const hex = getHexColor(ratingLink.rate);
         professor.innerHTML = `
-      ${professor.innerText} 
-      (<a id="popUp" class="popUp" href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}
-                </a>)`;
+        ${professor.innerText} 
+        (<a id="popUp" class="popUp" href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}
+                  </a>)`;
 
-
-        var Hover = document.createTextNode(
-          `${ratingLink.popUp.overall+'\n'}
-           ${ratingLink.popUp.takeAgain+'\n'}
-           ${ratingLink.popUp.difficulty+'\n'}`
-        );
-
-        $(professor).data(ratingLink);
+        var ontent = document.createTextNode(temp.overall);
+        var Hover = document.createTextNode("Hover");
         const sub = document.createElement("div");
-        sub.id = `${ratingLink.URL}`
         sub.appendChild(Hover);
-        sub.setAttribute("class", 'form-popup');
+        sub.setAttribute("class", ratingLink.URL);
         professor.appendChild(sub);
-        var ref = $(professor);
-        var popup = $(sub);
-        popup.hide();
-        ref.hover(function () {
-          var popper = new Popper(ref, popup, {
-            placement: 'top',
-            onCreate: function (data) {
-              popup.show();
-              console.log(data);
-            },
-            modifiers: {
-              flip: {
-                behavior: ['left', 'right', 'top', 'bottom']
-              },
-            }
-          });
-
-        }, function () {
-          popup.hide();
-        });
-        /*
-        $(sub).tooltip({
+        $(sub).tooltipster({
           items: "div",
           classes: {
             "ui-tooltip": "highlight"
           },
           content: ontent
-        });*/
+        });
       } else {
         console.log(`Could not get rating for ${professor.innerText}`);
       }
     }
   }
-
 
 
   function getHexColor(ratingLink) {

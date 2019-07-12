@@ -9,8 +9,8 @@
 
 	"content_scripts": [{
 		"matches": ["https://app.banner.pdx.edu/*"],
-		"css": ["jquery-ui.css", "my.css"],
-		"js": ["jquery.js", "jquery-ui.js", "rmp.js", "popper.js", "tooltip.js"]
+		"css": ["dist/css/tooltipster.bundle.css"],
+		"js": ["jquery.js", "dist/js/tooltipster.bundle.js", "rmp.js"]
 
 	}],
 	"background": {
