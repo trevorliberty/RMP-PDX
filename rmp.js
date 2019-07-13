@@ -157,17 +157,45 @@ function embedLink(professor, ratingLink) {
     if (!professor.textContent.includes(ratingLink.rate)) {
       const hex = getHexColor(ratingLink.rate);
 
+      const tipContent = `
+        <div>
+          <h1>
+            ${temp.overall}
+          </h1>
+          <h2>
+            ${temp.takeAgain} 
+          </h2>
+          <h3>
+            ${temp.difficulty}
+          </h3>
+
+        </div>`
       professor.innerHTML = `
       ${professor.innerText} 
       (<a id="popUp" class="popUp" href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}
                 </a>)`;
-
       $(professor).tooltipster({
+        delay: [100, 10000],
+        theme: 'my-window',
+        side: 'left',
         classes: {
           "ui-tooltip": "highlight"
         },
-        content: 'pen'
+        contentAsHTML: true,
+        content: tipContent
       });
+      console.log($(professor, '.tooltipstered'));
+      (function writeStyles(styleName, cssText) {
+        var styleElement = document.getElementById(styleName);
+        if (styleElement) document.getElementsByTagName('head')[0].removeChild(
+          styleElement);
+        styleElement = document.createElement('style');
+        styleElement.type = 'text/css';
+        styleElement.id = styleName;
+        styleElement.innerHTML = cssText;
+        document.getElementsByTagName('head')[0].appendChild(styleElement);
+      })();
+
 
     } else {
       console.log(`Could not get rating for ${professor.innerText}`);
