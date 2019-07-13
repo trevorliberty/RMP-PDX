@@ -154,7 +154,6 @@ function getPopup(block) {
 function embedLink(professor, ratingLink) {
 
   if (ratingLink) {
-    let stuff = []
     let temp = ratingLink.popUp;
     if (!professor.textContent.includes(ratingLink.rate)) {
       const hex = getHexColor(ratingLink.rate);
@@ -164,18 +163,18 @@ function embedLink(professor, ratingLink) {
             ${temp.overall}
           </h1>
           <h2>
-            ${temp.takeAgain}
+            ${temp.takeAgain} 
           </h2>
           <h3>
             ${temp.difficulty}
           </h3>
         </div>
-      `
+
       professor.innerHTML = `
       ${professor.innerText}
       (<a id="${ratingLink.URL}" class="popUp" href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}
                 </a>)`;
-      let stuff = []
+       let stuff = []
       if (ratingLink.rate >= 4) {
         stuff = ['tooltipster-noir', 'tooltipster-noir-thing', 'tooltipster-noir-arrBody1', 'tooltipster-noir-arrBorder1']
       }
@@ -198,6 +197,7 @@ function embedLink(professor, ratingLink) {
         contentAsHTML: true,
         content: tipContent
       })
+
     } else {
       console.log(`Could not get rating for ${professor.innerText}`);
     }
