@@ -63,10 +63,10 @@ function getTID(professor) {
   /**Returns the TID of the professor if they exist in rate my professor */
   return new Promise((resolve, reject) => {
     chrome.runtime.sendMessage({
-        method: "POST",
-        url: "http://www.ratemyprofessors.com/search.jsp",
-        data: `queryBy=teacherName&query=portland+state+university+${lastName}+${firstName}&facetSearch=true`
-      },
+      method: "POST",
+      url: "http://www.ratemyprofessors.com/search.jsp",
+      data: `queryBy=teacherName&query=portland+state+university+${lastName}+${firstName}&facetSearch=true`
+    },
       function (response) {
         if (response) {
           const regex = new RegExp(lastName + "\\W?,\\W?" + firstName, "ig");
@@ -94,10 +94,10 @@ function getRatingLink(tid) {
   const url = "http://www.ratemyprofessors.com/ShowRatings.jsp";
   return new Promise((resolve, reject) => {
     chrome.runtime.sendMessage({
-        method: "POST",
-        url: `${url}`, //"http://www.ratemyprofessors.com/ShowRatings.jsp?tid=",
-        data: `tid=${tid}`
-      },
+      method: "POST",
+      url: `${url}`, //"http://www.ratemyprofessors.com/ShowRatings.jsp?tid=",
+      data: `tid=${tid}`
+    },
       function (response) {
         if (response) {
           const element = response.match(
@@ -152,23 +152,52 @@ function getPopup(block) {
 }
 
 function embedLink(professor, ratingLink) {
+
   if (ratingLink) {
+    let stuff = []
     let temp = ratingLink.popUp;
     if (!professor.textContent.includes(ratingLink.rate)) {
       const hex = getHexColor(ratingLink.rate);
-
+      const tipContent = `
+        <div>
+          <h1>
+            ${temp.overall}
+          </h1>
+          <h2>
+            ${temp.takeAgain}
+          </h2>
+          <h3>
+            ${temp.difficulty}
+          </h3>
+        </div>
+      `
       professor.innerHTML = `
-      ${professor.innerText} 
-      (<a id="popUp" class="popUp" href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}
+      ${professor.innerText}
+      (<a id="${ratingLink.URL}" class="popUp" href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}
                 </a>)`;
-
+      let stuff = []
+      if (ratingLink.rate >= 4) {
+        stuff = ['tooltipster-noir', 'tooltipster-noir-thing']
+      }
+      else if (ratingLink.rate >= 3) {
+        stuff = ['tooltipster-noir', 'tooltipster-noir-thing1']
+      }
+      else {
+        stuff = ['tooltipster-noir', 'tooltipster-noir-thing2']
+      }
+      //alert(ratingLink.rate)
       $(professor).tooltipster({
+        title: "hello",
+        side: "left",
+        animation: "grow",
+        //$(this).css("background", "red"),
         classes: {
           "ui-tooltip": "highlight"
         },
-        content: 'pen'
-      });
-
+        theme: stuff,
+        contentAsHTML: true,
+        content: tipContent
+      })
     } else {
       console.log(`Could not get rating for ${professor.innerText}`);
     }
