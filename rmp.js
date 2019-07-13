@@ -140,12 +140,11 @@ $(document).ready(function () {
       });
     })();
     var Tags = arr.splice(6);
-    Tags = Tags.filter(tag => {
-      return tag !== undefined
-    })
+
     Tags = Tags.map(tag => {
       return `<li>${tag}</li>`
     })
+    Tags.shift()
     Tags = Tags.join(` `)
     const embed = {
       overall: arr[0] + ": " + arr[1],
