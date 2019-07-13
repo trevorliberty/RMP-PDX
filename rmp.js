@@ -177,13 +177,13 @@ function embedLink(professor, ratingLink) {
                 </a>)`;
       let stuff = []
       if (ratingLink.rate >= 4) {
-        stuff = ['tooltipster-noir', 'tooltipster-noir-thing']
+        stuff = ['tooltipster-noir', 'tooltipster-noir-thing', 'tooltipster-noir-arrBody1', 'tooltipster-noir-arrBorder1']
       }
       else if (ratingLink.rate >= 3) {
-        stuff = ['tooltipster-noir', 'tooltipster-noir-thing1']
+        stuff = ['tooltipster-noir', 'tooltipster-noir-thing1', 'tooltipster-noir-arrBody2', 'tooltipster-noir-arrBorder2']
       }
       else {
-        stuff = ['tooltipster-noir', 'tooltipster-noir-thing2']
+        stuff = ['tooltipster-noir', 'tooltipster-noir-thing2', 'tooltipster-noir-arrBody3', 'tooltipster-noir-arrBorder3']
       }
       //alert(ratingLink.rate)
       $(professor).tooltipster({

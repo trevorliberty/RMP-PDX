@@ -399,6 +399,34 @@ corresponds to the arrow we want to display */
 	left: -10px;
 }
 
+.tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBorder1 .tooltipster-arrow-border {
+	border-left-color: #b3cf35;
+}
+
+.tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBody1 .tooltipster-arrow-background {
+	border-left-color: #b3cf35;
+	left: -3px;
+	top: 0;
+}
+
+.tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBorder2 .tooltipster-arrow-border {
+	border-left-color: #f7cc1e;
+}
+
+.tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBody2 .tooltipster-arrow-background {
+	border-left-color: #f7cc1e;
+	left: -3px;
+	top: 0;
+}
+.tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBorder3 .tooltipster-arrow-border {
+	border-left-color: #e21744;
+}
+
+.tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBody3 .tooltipster-arrow-background {
+	border-left-color: #e21744;
+	left: -3px;
+	top: 0;
+}
 .tooltipster-sidetip.tooltipster-noir.tooltipster-noir-thing .tooltipster-box {
 	background:#b3cf35;
 	border: #B2CF35;
