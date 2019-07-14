@@ -191,6 +191,11 @@ function embedLink(professor, ratingLink) {
   }
 }
 
+/**
+ * Gets the tipContent for tooltipster 
+ * @param {object} ratingLink 
+ * @param {array} themeArray 
+ */
 function getContent(ratingLink, themeArray) {
   let shadow = '';
   let tempObj = ratingLink.popUp;
