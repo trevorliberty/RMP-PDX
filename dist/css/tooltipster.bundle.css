@@ -400,21 +400,21 @@ corresponds to the arrow we want to display */
 }
 
 .tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBorder1 .tooltipster-arrow-border {
-	border-left-color: #b3cf35;
+	border-left-color:  rgb(154, 185, 14);
 }
 
 .tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBody1 .tooltipster-arrow-background {
-	border-left-color: #b3cf35;
+	border-left-color: rgb(195, 214, 111);
 	left: -3px;
 	top: 0;
 }
 
 .tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBorder2 .tooltipster-arrow-border {
-	border-left-color: #f7cc1e;
+	border-left-color: rgb(214, 177, 26);
 }
 
 .tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBody2 .tooltipster-arrow-background {
-	border-left-color: #f7cc1e;
+	border-left-color: #f3d55b;
 	left: -3px;
 	top: 0;
 }
@@ -423,13 +423,13 @@ corresponds to the arrow we want to display */
 }
 
 .tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBody3 .tooltipster-arrow-background {
-	border-left-color: #e21744;
+	border-left-color: #e15473;
 	left: -3px;
 	top: 0;
 }
 .tooltipster-sidetip.tooltipster-noir.tooltipster-noir-thing .tooltipster-box {
-	background:#b3cf35;
-	border: #B2CF35;
+	background:rgb(195, 214, 111);
+	border: 2px solid rgb(154, 185, 14);
 	border-radius: 6px;
 	box-shadow: 5px 5px 2px 0 rgba(0,0,0,0.4);
 }
@@ -441,8 +441,8 @@ corresponds to the arrow we want to display */
 
 
 .tooltipster-sidetip.tooltipster-noir.tooltipster-noir-thing1 .tooltipster-box {
-	background: #f7cc1e;
-	border: #f7cc1e;
+	background: #F3D55B;
+	border: 2px solid rgb(214, 177, 26);
 	border-radius: 6px;
 	box-shadow: 5px 5px 2px 0 rgba(0,0,0,0.4);
 	pointer-events: all;
@@ -455,8 +455,8 @@ corresponds to the arrow we want to display */
 }
 
 .tooltipster-sidetip.tooltipster-noir.tooltipster-noir-thing2 .tooltipster-box {
-	background:#e21744;
-	border: #e21744;
+	background:#e15473;
+	border: 2px solid #e21744;
 	border-radius: 6px;
 	box-shadow: 5px 5px 2px 0 rgba(0,0,0,0.4);
 	pointer-events: all;

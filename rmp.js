@@ -177,27 +177,32 @@ $(document).ready(function () {
           </h3>
          </div>`
 
-        professor.innerHTML = `
-      ${professor.innerText}
+        //${professor.innerText}
+        var place = "<span></span>"
+        var check = professor.innerText;
+        if (check.length > 30) {
+          place = "<div></div>"
+        }
+        professor.innerHTML = `${professor.innerText} ${place}
       (<a id="${ratingLink.URL}" class="popUp" href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}
                 </a>)`;
         let stuff = []
         if (ratingLink.rate >= 4) {
           stuff = ['tooltipster-noir', 'tooltipster-noir-thing', 'tooltipster-noir-arrBody1', 'tooltipster-noir-arrBorder1']
-          shadow = "#a0ba2c"
+          shadow = "#afcb34"
         }
         else if (ratingLink.rate >= 3) {
           stuff = ['tooltipster-noir', 'tooltipster-noir-thing1', 'tooltipster-noir-arrBody2', 'tooltipster-noir-arrBorder2']
-          shadow = "#cdad2d"
+          shadow = "#dec048"
         }
         else {
           stuff = ['tooltipster-noir', 'tooltipster-noir-thing2', 'tooltipster-noir-arrBody3', 'tooltipster-noir-arrBorder3']
-          shadow = "#b51235"
+          shadow = "#c73454"
         }
         if (temp.tags.length > 20) {
           tipContent += `
           <h3 style="margin: 0; padding:0">Top tags:</h3>
-          <ul style="padding-bottom: 20px; padding-left: 0; margin:0; text-shadow:2px 2px ${shadow}">
+          <ul style="padding-bottom: 20px; padding-left: 0; margin:0; text-shadow:3px 3px 3px ${shadow},0px 3px 3px ${shadow};">
           ${temp.tags}
           </ul>
           `
@@ -206,7 +211,7 @@ $(document).ready(function () {
 
         tipContent += `
         <div><a style="color:rgb(253, 253, 253)" target="_blank" href="${ratingLink.URL}#sratingComments">Go to professor's comments</a></div>
-        <div><a id="specialBox" style="	color: rgb(253, 253, 253)" target="_blank" href="${ratingLink.rateUrl}#rateProfessorForm">Rate this professor</a></div>
+        <div><a id="specialBox" style="	color: #ffffff" target="_blank" href="${ratingLink.rateUrl}#rateProfessorForm">Rate this professor</a></div>
         `
         if (ratingLink.rate !== "No reviews") {
           $(professor).tooltipster({
