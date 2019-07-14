@@ -52,6 +52,7 @@
 	-ms-transition-property: opacity;
 	transition-property: opacity;
 }
+
 .tooltipster-fade.tooltipster-show {
 	opacity: 1;
 }
@@ -59,11 +60,11 @@
 /* grow */
 
 .tooltipster-grow {
-	-webkit-transform: scale(0,0);
-	-moz-transform: scale(0,0);
-	-o-transform: scale(0,0);
-	-ms-transform: scale(0,0);
-	transform: scale(0,0);
+	-webkit-transform: scale(0, 0);
+	-moz-transform: scale(0, 0);
+	-o-transform: scale(0, 0);
+	-ms-transform: scale(0, 0);
+	transform: scale(0, 0);
 	-webkit-transition-property: -webkit-transform;
 	-moz-transition-property: -moz-transform;
 	-o-transition-property: -o-transform;
@@ -71,12 +72,13 @@
 	transition-property: transform;
 	-webkit-backface-visibility: hidden;
 }
+
 .tooltipster-grow.tooltipster-show {
-	-webkit-transform: scale(1,1);
-	-moz-transform: scale(1,1);
-	-o-transform: scale(1,1);
-	-ms-transform: scale(1,1);
-	transform: scale(1,1);
+	-webkit-transform: scale(1, 1);
+	-moz-transform: scale(1, 1);
+	-o-transform: scale(1, 1);
+	-ms-transform: scale(1, 1);
+	transform: scale(1, 1);
 	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
 	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
 	-moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
@@ -100,6 +102,7 @@
 	-ms-transition-property: -ms-transform;
 	transition-property: transform;
 }
+
 .tooltipster-swing.tooltipster-show {
 	opacity: 1;
 	-webkit-transform: rotateZ(0deg);
@@ -130,11 +133,13 @@
 	-o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
 	transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
 }
+
 .tooltipster-fall.tooltipster-initial {
 	top: 0 !important;
 }
-.tooltipster-fall.tooltipster-show {
-}
+
+.tooltipster-fall.tooltipster-show {}
+
 .tooltipster-fall.tooltipster-dying {
 	-webkit-transition-property: all;
 	-moz-transition-property: all;
@@ -160,11 +165,13 @@
 	-o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
 	transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
 }
+
 .tooltipster-slide.tooltipster-initial {
 	left: -40px !important;
 }
-.tooltipster-slide.tooltipster-show {
-}
+
+.tooltipster-slide.tooltipster-show {}
+
 .tooltipster-slide.tooltipster-dying {
 	-webkit-transition-property: all;
 	-moz-transition-property: all;
@@ -188,6 +195,7 @@
 	0% {
 		opacity: 0;
 	}
+
 	100% {
 		opacity: 1;
 	}
@@ -203,9 +211,11 @@
 	25% {
 		transform: rotate(-2deg);
 	}
+
 	75% {
 		transform: rotate(2deg);
 	}
+
 	100% {
 		transform: rotate(0);
 	}
@@ -221,6 +231,7 @@
 	50% {
 		transform: scale(1.1);
 	}
+
 	100% {
 		transform: scale(1);
 	}
@@ -244,6 +255,7 @@
 	border: 2px solid rgb(0, 0, 0);
 	border-radius: 4px;
 }
+
 .tooltipster-sidetip .tooltipster-box .tooltipster-custom {
 	/* this ensures that a constrained height set by functionPosition,
 	if greater that the natural height of the tooltip, will be enforced
@@ -251,9 +263,9 @@
 	display: flex;
 	pointer-events: none;
 	/* this may be overriden in JS for fixed position origins */
-    position: absolute;
-    background: aqua!important;
-    border-color: aqua!important
+	position: absolute;
+	background: aqua !important;
+	border-color: aqua !important
 }
 
 
@@ -325,7 +337,8 @@ corresponds to the arrow we want to display */
 
 /* common rules between .tooltipster-arrow-background and .tooltipster-arrow-border */
 
-.tooltipster-sidetip .tooltipster-arrow-background, .tooltipster-sidetip .tooltipster-arrow-border {
+.tooltipster-sidetip .tooltipster-arrow-background,
+.tooltipster-sidetip .tooltipster-arrow-border {
 	height: 0;
 	position: absolute;
 	width: 0;
@@ -399,67 +412,69 @@ corresponds to the arrow we want to display */
 	left: -10px;
 }
 
-.tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBorder1 .tooltipster-arrow-border {
+.tooltipster-sidetip.tooltipster-left.greenArrBorder .tooltipster-arrow-border {
 	border-left-color: #b3cf35;
 }
 
-.tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBody1 .tooltipster-arrow-background {
+.tooltipster-sidetip.tooltipster-left.greenArrBg .tooltipster-arrow-background {
 	border-left-color: #b3cf35;
 	left: -3px;
 	top: 0;
 }
 
-.tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBorder2 .tooltipster-arrow-border {
+.tooltipster-sidetip.tooltipster-left.yellowArrBorder .tooltipster-arrow-border {
 	border-left-color: #f7cc1e;
 }
 
-.tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBody2 .tooltipster-arrow-background {
+.tooltipster-sidetip.tooltipster-left.yellowArrBg .tooltipster-arrow-background {
 	border-left-color: #f7cc1e;
 	left: -3px;
 	top: 0;
 }
-.tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBorder3 .tooltipster-arrow-border {
+
+.tooltipster-sidetip.tooltipster-left.redArrBorder .tooltipster-arrow-border {
 	border-left-color: #e21744;
 }
 
-.tooltipster-sidetip.tooltipster-left.tooltipster-noir-arrBody3 .tooltipster-arrow-background {
+.tooltipster-sidetip.tooltipster-left.redArrBg .tooltipster-arrow-background {
 	border-left-color: #e21744;
 	left: -3px;
 	top: 0;
 }
-.tooltipster-sidetip.tooltipster-noir.tooltipster-noir-thing .tooltipster-box {
-	background:#b3cf35;
+
+.tooltipster-sidetip.tooltipster-noir.green .tooltipster-box {
+	background: #b3cf35;
 	border: #B2CF35;
 	border-radius: 6px;
-	box-shadow: 5px 5px 2px 0 rgba(0,0,0,0.4);
+	box-shadow: 5px 5px 2px 0 rgba(0, 0, 0, 0.4);
 }
 
-.tooltipster-sidetip.tooltipster-noir.tooltipster-noir-thing .tooltipster-content {
+.tooltipster-sidetip.tooltipster-noir.green .tooltipster-content {
 	color: rgb(253, 253, 253);
 	padding: 8px;
 }
 
 
-.tooltipster-sidetip.tooltipster-noir.tooltipster-noir-thing1 .tooltipster-box {
-	background:#f7cc1e;
+.tooltipster-sidetip.tooltipster-noir.yellow .tooltipster-box {
+	background: #f7cc1e;
 	border: #f7cc1e;
 	border-radius: 6px;
-	box-shadow: 5px 5px 2px 0 rgba(0,0,0,0.4);
+	box-shadow: 5px 5px 2px 0 rgba(0, 0, 0, 0.4);
 }
 
-.tooltipster-sidetip.tooltipster-noir.tooltipster-noir-thing1 .tooltipster-content {
+.tooltipster-sidetip.tooltipster-noir.yellow .tooltipster-content {
 	color: rgb(253, 253, 253);
 	padding: 8px;
 }
 
-.tooltipster-sidetip.tooltipster-noir.tooltipster-noir-thing2 .tooltipster-box {
-	background:#e21744;
+.tooltipster-sidetip.tooltipster-noir.red .tooltipster-box {
+	background: #e21744;
 	border: #e21744;
 	border-radius: 6px;
-	box-shadow: 5px 5px 2px 0 rgba(0,0,0,0.4);
+	box-shadow: 5px 5px 2px 0 rgba(0, 0, 0, 0.4);
 }
 
-.tooltipster-sidetip.tooltipster-noir.tooltipster-noir-thing2 .tooltipster-content {
+.tooltipster-sidetip.tooltipster-noir.red .tooltipster-content {
 	color: rgb(253, 253, 253);
 	padding: 8px;
 }

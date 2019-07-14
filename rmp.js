@@ -63,10 +63,10 @@ function getTID(professor) {
   /**Returns the TID of the professor if they exist in rate my professor */
   return new Promise((resolve, reject) => {
     chrome.runtime.sendMessage({
-      method: "POST",
-      url: "http://www.ratemyprofessors.com/search.jsp",
-      data: `queryBy=teacherName&query=portland+state+university+${lastName}+${firstName}&facetSearch=true`
-    },
+        method: "POST",
+        url: "http://www.ratemyprofessors.com/search.jsp",
+        data: `queryBy=teacherName&query=portland+state+university+${lastName}+${firstName}&facetSearch=true`
+      },
       function (response) {
         if (response) {
           const regex = new RegExp(lastName + "\\W?,\\W?" + firstName, "ig");
@@ -94,10 +94,10 @@ function getRatingLink(tid) {
   const url = "http://www.ratemyprofessors.com/ShowRatings.jsp";
   return new Promise((resolve, reject) => {
     chrome.runtime.sendMessage({
-      method: "POST",
-      url: `${url}`, //"http://www.ratemyprofessors.com/ShowRatings.jsp?tid=",
-      data: `tid=${tid}`
-    },
+        method: "POST",
+        url: `${url}`, //"http://www.ratemyprofessors.com/ShowRatings.jsp?tid=",
+        data: `tid=${tid}`
+      },
       function (response) {
         if (response) {
           const element = response.match(
@@ -152,7 +152,6 @@ function getPopup(block) {
 }
 
 function embedLink(professor, ratingLink) {
-
   if (ratingLink) {
     let temp = ratingLink.popUp;
     if (!professor.textContent.includes(ratingLink.rate)) {
@@ -168,42 +167,54 @@ function embedLink(professor, ratingLink) {
           <h3>
             ${temp.difficulty}
           </h3>
+          <a href="#">More</a>
         </div>
-
+        `
       professor.innerHTML = `
       ${professor.innerText}
       (<a id="${ratingLink.URL}" class="popUp" href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}
                 </a>)`;
-       let stuff = []
       if (ratingLink.rate >= 4) {
-        stuff = ['tooltipster-noir', 'tooltipster-noir-thing', 'tooltipster-noir-arrBody1', 'tooltipster-noir-arrBorder1']
+        stuff = ['tooltipster-noir', 'green', 'greenArrBg', 'greenArrBorder']
+      } else if (ratingLink.rate >= 3) {
+        stuff = ['tooltipster-noir', 'yellow', 'yellowArrBg', 'yellowArrBorder']
+      } else {
+        stuff = ['tooltipster-noir', 'red', 'redArrBg', 'redArrBorder']
       }
-      else if (ratingLink.rate >= 3) {
-        stuff = ['tooltipster-noir', 'tooltipster-noir-thing1', 'tooltipster-noir-arrBody2', 'tooltipster-noir-arrBorder2']
-      }
-      else {
-        stuff = ['tooltipster-noir', 'tooltipster-noir-thing2', 'tooltipster-noir-arrBody3', 'tooltipster-noir-arrBorder3']
-      }
-      //alert(ratingLink.rate)
+
       $(professor).tooltipster({
         title: "hello",
         side: "left",
         animation: "grow",
-        //$(this).css("background", "red"),
         classes: {
           "ui-tooltip": "highlight"
         },
         theme: stuff,
+        interactive: true,
         contentAsHTML: true,
-        content: tipContent
-      })
+        content: $(tipContent),
+        functionReady: function (instance, helper) {
+          $('a').tooltipster({
+            theme: $(professor).tooltipster('theme'),
+            trigger: 'custom',
+            triggerOpen: {
+              click: true
+            },
+            triggerClose: {
+              click: true
+            },
+            side: 'bottom',
+            content: 'I am a nested tooltip!',
+            distance: 0,
+          });
+        },
+      });
 
     } else {
       console.log(`Could not get rating for ${professor.innerText}`);
     }
   }
 }
-
 
 function getHexColor(ratingLink) {
   ratingLink = Number(ratingLink);
