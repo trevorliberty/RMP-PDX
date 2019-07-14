@@ -432,10 +432,12 @@ corresponds to the arrow we want to display */
 	border: #B2CF35;
 	border-radius: 6px;
 	box-shadow: 5px 5px 2px 0 rgba(0,0,0,0.4);
+	pointer-events: all;
 }
 
 .tooltipster-sidetip.tooltipster-noir.tooltipster-noir-thing .tooltipster-content {
-	color: rgb(253, 253, 253);
+	color: rgb(255, 255, 255);
+
 	padding: 8px;
 }
 

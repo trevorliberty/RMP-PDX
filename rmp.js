@@ -104,6 +104,8 @@ $(document).ready(function () {
             );
             const rating = element ? element[0].match(/[0-9.]{3}/g) : null;
             const link = `${url + "?tid=" + tid}`;
+            const rateLink = `https://www.ratemyprofessors.com/AddRating.jsp?tid=${tid}`
+
             var block = $(
               "#mainContent > div.right-panel > div.rating-breakdown",
               response
@@ -112,7 +114,8 @@ $(document).ready(function () {
             const ratingLink = {
               rate: rating,
               URL: link,
-              popUp: embed
+              popUp: embed,
+              rateUrl: rateLink
             };
             resolve(ratingLink);
           }
@@ -140,10 +143,10 @@ $(document).ready(function () {
       });
     })();
     var Tags = arr.splice(6);
-
     Tags = Tags.map(tag => {
       return `<li>${tag}</li>`
     })
+    Tags.length = 4
     Tags.shift()
     Tags = Tags.join(` `)
     const embed = {
@@ -190,15 +193,20 @@ $(document).ready(function () {
           stuff = ['tooltipster-noir', 'tooltipster-noir-thing2', 'tooltipster-noir-arrBody3', 'tooltipster-noir-arrBorder3']
           shadow = "#b51235"
         }
-        if (temp.tags.length > 1) {
+        if (temp.tags.length > 20) {
           tipContent += `
           <h3 style="margin: 0; padding:0">Top tags:</h3>
-          <ul style="padding: 0; margin:0; text-shadow:2px 1px ${shadow}">
+          <ul style="padding-bottom: 20px; padding-left: 0; margin:0; text-shadow:2px 2px ${shadow}">
           ${temp.tags}
           </ul>
           `
         }
+        tipContent += `
+        <div><a style="color:rgb(253, 253, 253)" target="_blank" href="${ratingLink.URL}#sratingComments">Go to professor's comments</a></div>
+        <div><a style="	color: rgb(253, 253, 253)" target="_blank" href="${ratingLink.rateUrl}#rateProfessorForm">Rate this professor</a></div>
+        `
         $(professor).tooltipster({
+          interactive: true,
           title: "hello",
           side: "left",
           animation: "grow",
@@ -208,7 +216,7 @@ $(document).ready(function () {
           },
           theme: stuff,
           contentAsHTML: true,
-          content: tipContent
+          content: tipContent,
         })
       } else {
         console.log(`Could not get rating for ${professor.innerText}`);
