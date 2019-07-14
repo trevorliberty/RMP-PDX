@@ -4,7 +4,6 @@
  *  When user clicks 'Search', waits for selector to be initialized
  */
 $(document).ready(function () {
-
   $(
     "#search-go, #s2id_txt_subject, #txt_courseNumber, #txt_keywordlike, #txt_keywordexact"
   ).on("keypress click", function test(e) {
@@ -102,7 +101,7 @@ $(document).ready(function () {
             const element = response.match(
               /<div class="grade" title="">[0-9.]{3}<\/div>/g
             );
-            const rating = element ? element[0].match(/[0-9.]{3}/g) : null;
+            const rating = element ? element[0].match(/[0-9.]{3}/g) : "No reviews";
             const link = `${url + "?tid=" + tid}`;
             const rateLink = `https://www.ratemyprofessors.com/AddRating.jsp?tid=${tid}`
 
@@ -158,6 +157,7 @@ $(document).ready(function () {
     return embed;
   }
 
+  //var counter = 19573
   function embedLink(professor, ratingLink) {
     var shadow = ""
     if (ratingLink) {
@@ -176,6 +176,7 @@ $(document).ready(function () {
             ${temp.difficulty}
           </h3>
          </div>`
+
         professor.innerHTML = `
       ${professor.innerText}
       (<a id="${ratingLink.URL}" class="popUp" href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}
@@ -201,29 +202,31 @@ $(document).ready(function () {
           </ul>
           `
         }
+
+
         tipContent += `
         <div><a style="color:rgb(253, 253, 253)" target="_blank" href="${ratingLink.URL}#sratingComments">Go to professor's comments</a></div>
-        <div><a style="	color: rgb(253, 253, 253)" target="_blank" href="${ratingLink.rateUrl}#rateProfessorForm">Rate this professor</a></div>
+        <div><a id="specialBox" style="	color: rgb(253, 253, 253)" target="_blank" href="${ratingLink.rateUrl}#rateProfessorForm">Rate this professor</a></div>
         `
-        $(professor).tooltipster({
-          interactive: true,
-          title: "hello",
-          side: "left",
-          animation: "grow",
-          //$(this).css("background", "red"),
-          classes: {
-            "ui-tooltip": "highlight"
-          },
-          theme: stuff,
-          contentAsHTML: true,
-          content: tipContent,
-        })
-      } else {
-        console.log(`Could not get rating for ${professor.innerText}`);
+        if (ratingLink.rate !== "No reviews") {
+          $(professor).tooltipster({
+            interactive: true,
+            title: "hello",
+            side: "left",
+            animation: "grow",
+            classes: {
+              "ui-tooltip": "highlight"
+            },
+            theme: stuff,
+            contentAsHTML: true,
+            content: tipContent,
+          })
+        } else {
+          console.log(`Could not get rating for ${professor.innerText}`);
+        }
       }
     }
   }
-
 
   function getHexColor(ratingLink) {
     ratingLink = Number(ratingLink);
@@ -235,5 +238,4 @@ $(document).ready(function () {
       return "E21744";
     }
   }
-
 });
