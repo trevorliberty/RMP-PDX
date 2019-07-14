@@ -19,7 +19,6 @@ $(document).ready(function () {
         } else {
           timerId = setTimeout(handle, 100);
         }
-        //self.clearTimeout()
       }, 100);
     }
   });
@@ -43,7 +42,6 @@ function startScript() {
         })
         .then(function (ratingLink) {
           embedLink(subgroup, ratingLink);
-          //embedLink(professor, ratingLink);
         });
     });
   });
@@ -158,7 +156,6 @@ function getPopup(block) {
   };
   return embed;
 }
-
 /**
  * Embeds the popUp and rate for the professor at the passed in 
  * DOM_Element
