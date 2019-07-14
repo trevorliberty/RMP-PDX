@@ -141,7 +141,12 @@ function getPopup(block) {
     });
   })();
   const Tags = arr.splice(6);
-
+  Tags = Tags.map(tag => {
+    return `<li>${tag}</li>`
+  })
+  Tags.length = 4
+  Tags.shift()
+  Tags = Tags.join(` `)
   const embed = {
     overall: arr[0] + ": " + arr[1],
     takeAgain: arr[2] + ": " + arr[3],
@@ -156,7 +161,7 @@ function embedLink(professor, ratingLink) {
     let temp = ratingLink.popUp;
     if (!professor.textContent.includes(ratingLink.rate)) {
       const hex = getHexColor(ratingLink.rate);
-      const tipContent = `
+      let tipContent = `
         <div>
           <h1>
             ${temp.overall}
@@ -195,7 +200,6 @@ function embedLink(professor, ratingLink) {
         content: $(tipContent),
         functionReady: function (instance, helper) {
           $('a').tooltipster({
-            theme: $(professor).tooltipster('theme'),
             trigger: 'custom',
             triggerOpen: {
               click: true
