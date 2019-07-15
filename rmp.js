@@ -201,13 +201,13 @@ function getContent(ratingLink, themeArray) {
   let tempObj = ratingLink.popUp;
   if (ratingLink.rate >= 4) {
     themeArray.push('tooltipster-noir-thing', 'tooltipster-noir-arrBody1', 'tooltipster-noir-arrBorder1');
-    shadow = "#a0ba2c"
+    shadow = "#afcb34"
   } else if (ratingLink.rate >= 3) {
     themeArray.push('tooltipster-noir-thing1', 'tooltipster-noir-arrBody2', 'tooltipster-noir-arrBorder2');
-    shadow = "#cdad2d"
+    shadow = "#dec048"
   } else {
     themeArray.push('tooltipster-noir-thing2', 'tooltipster-noir-arrBody3', 'tooltipster-noir-arrBorder3');
-    shadow = "#b51235"
+    shadow = "#c73454"
   }
   var tipContent = `
     <div>
@@ -231,7 +231,7 @@ function getContent(ratingLink, themeArray) {
   }
   tipContent += `
         <div><a style="color:rgb(253, 253, 253)" target="_blank" href="${ratingLink.URL}#sratingComments">Go to professor's comments</a></div>
-        <div><a style="	color: rgb(253, 253, 253)" target="_blank" href="${ratingLink.rateUrl}#rateProfessorForm">Rate this professor</a></div>
+        <div><a style="	color: #ffffff" target="_blank" href="${ratingLink.rateUrl}#rateProfessorForm">Rate this professor</a></div>
     `
   return tipContent;
 }
