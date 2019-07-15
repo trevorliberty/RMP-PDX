@@ -101,7 +101,7 @@ function getRatingLink(tid) {
           const element = response.match(
             /<div class="grade" title="">[0-9.]{3}<\/div>/g
           );
-          const rating = element ? element[0].match(/[0-9.]{3}/g) : null;
+          const rating = element ? element[0].match(/[0-9.]{3}/g) : 'No Reviews';
           const link = `${url + "?tid=" + tid}`;
           const rateLink = `https://www.ratemyprofessors.com/AddRating.jsp?tid=${tid}`
 
@@ -173,24 +173,26 @@ function embedLink(professor, ratingLink) {
                 </a>)`;
       let stuff = ['tooltipster-noir'];
       const tipContent = getContent(ratingLink, stuff);
-      $(professor).tooltipster({
-        interactive: true,
-        title: "hello",
-        side: "left",
-        animation: "grow",
-        classes: {
-          "ui-tooltip": "highlight"
-        },
-        theme: stuff,
-        contentAsHTML: true,
-        content: tipContent,
-      });
+      if (ratingLink.rate !== 'No Reviews') {
+        $(professor).tooltipster({
+          interactive: true,
+          title: "hello",
+          side: "left",
+          animation: "grow",
+          classes: {
+            "ui-tooltip": "highlight"
+          },
+          theme: stuff,
+          contentAsHTML: true,
+          content: tipContent,
+        });
+      }
     } else {
+
       console.log(`Already embedded rating for ${professor.innerText}`);
     }
   }
 }
-
 /**
  * Gets the tipContent for tooltipster 
  * @param {object} ratingLink 
