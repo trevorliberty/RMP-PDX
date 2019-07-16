@@ -6,19 +6,24 @@
 	"permissions": [
 		"*://*.ratemyprofessors.com/*"
 	],
-	"content_scripts": [{
-		"matches": [
-			"https://app.banner.pdx.edu/*"
-		],
-		"css": [
-			"dist/css/tooltipster.bundle.css"
-		],
-		"js": [
-			"jquery.js",
-			"dist/js/tooltipster.bundle.js",
-			"rmp.js"
-		]
-	}],
+	"content_scripts": [
+		{
+			"matches": [
+				"https://app.banner.pdx.edu/*"
+			],
+			"exclude_matches": [
+				"https://app.banner.pdx.edu/mobileAppPromo.png"
+			],
+			"css": [
+				"dist/css/tooltipster.bundle.css"
+			],
+			"js": [
+				"jquery.js",
+				"dist/js/tooltipster.bundle.js",
+				"rmp.js"
+			]
+		}
+	],
 	"background": {
 		"scripts": [
 			"jquery.js",

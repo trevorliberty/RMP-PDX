@@ -17,9 +17,9 @@ $(document).ready(function () {
             ".paging-control next ltr enabled, .paging-control previous ltr enabled"
           ).click(test(e));
         } else {
-          timerId = setTimeout(handle, 100);
+          timerId = setTimeout(handle, 300);
         }
-      }, 100);
+      }, 300);
     }
   });
 });
@@ -42,6 +42,9 @@ function startScript() {
         })
         .then(function (ratingLink) {
           embedLink(subgroup, ratingLink);
+        })
+        .catch(e => {
+          console.log(e);
         });
     });
   });
@@ -61,10 +64,10 @@ function getTID(professor) {
   /**Returns the TID of the professor if they exist in rate my professor */
   return new Promise((resolve, reject) => {
     chrome.runtime.sendMessage({
-        method: "POST",
-        url: "http://www.ratemyprofessors.com/search.jsp",
-        data: `queryBy=teacherName&query=portland+state+university+${lastName}+${firstName}&facetSearch=true`
-      },
+      method: "POST",
+      url: "http://www.ratemyprofessors.com/search.jsp",
+      data: `queryBy=teacherName&query=portland+state+university+${lastName}+${firstName}&facetSearch=true`
+    },
       function (response) {
         if (response) {
           const regex = new RegExp(lastName + "\\W?,\\W?" + firstName, "ig");
@@ -92,10 +95,10 @@ function getRatingLink(tid) {
   const url = "http://www.ratemyprofessors.com/ShowRatings.jsp";
   return new Promise((resolve, reject) => {
     chrome.runtime.sendMessage({
-        method: "POST",
-        url: `${url}`, //"http://www.ratemyprofessors.com/ShowRatings.jsp?tid=",
-        data: `tid=${tid}`
-      },
+      method: "POST",
+      url: `${url}`, //"http://www.ratemyprofessors.com/ShowRatings.jsp?tid=",
+      data: `tid=${tid}`
+    },
       function (response) {
         if (response) {
           const element = response.match(
@@ -157,10 +160,10 @@ function getPopup(block) {
   return embed;
 }
 /**
- * Embeds the popUp and rate for the professor at the passed in 
+ * Embeds the popUp and rate for the professor at the passed in
  * DOM_Element
- * @param {DOM_Element} professor 
- * @param {Rate_Object} ratingLink 
+ * @param {DOM_Element} professor
+ * @param {Rate_Object} ratingLink
  */
 function embedLink(professor, ratingLink) {
   if (ratingLink) {
@@ -194,9 +197,9 @@ function embedLink(professor, ratingLink) {
   }
 }
 /**
- * Gets the tipContent for tooltipster 
- * @param {object} ratingLink 
- * @param {array} themeArray 
+ * Gets the tipContent for tooltipster
+ * @param {object} ratingLink
+ * @param {array} themeArray
  */
 function getContent(ratingLink, themeArray) {
   let shadow = '';
