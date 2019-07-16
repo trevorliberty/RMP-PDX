@@ -17,7 +17,7 @@
 				"https://app.banner.pdx.edu/*"
 			],
 			"exclude_matches": [
-				"https://app.banner.pdx.edu/mobileAppPromo.png"
+				"https://app.banner.pdx.edu/mobileAppPromo.png*"
 			],
 			"css": [
 				"dist/css/tooltipster.bundle.css"
