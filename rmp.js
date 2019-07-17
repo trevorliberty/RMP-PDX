@@ -12,14 +12,15 @@ $(document).ready(function () {
       self.timerId = setTimeout(function handle() {
         if ($("#table1 > tbody > tr:nth-child(1)").length) {
           //If there is rendered selector, call startScript function
+          clearTimeout(self.timerId);
           startScript();
           $(
             ".paging-control next ltr enabled, .paging-control previous ltr enabled"
           ).click(test(e));
         } else {
-          timerId = setTimeout(handle, 300);
+          timerId = setTimeout(handle, 500);
         }
-      }, 300);
+      }, 500);
     }
   });
 });
@@ -41,7 +42,7 @@ function startScript() {
           return getRatingLink(tid);
         })
         .then(function (ratingLink) {
-          embedLink(subgroup, ratingLink);
+          return embedLink(subgroup, ratingLink);
         })
         .catch(e => {
           console.log(e);
@@ -64,15 +65,16 @@ function getTID(professor) {
   /**Returns the TID of the professor if they exist in rate my professor */
   return new Promise((resolve, reject) => {
     chrome.runtime.sendMessage({
-      method: "POST",
-      url: "http://www.ratemyprofessors.com/search.jsp",
-      data: `queryBy=teacherName&query=portland+state+university+${lastName}+${firstName}&facetSearch=true`
-    },
+        method: "POST",
+        url: "http://www.ratemyprofessors.com/search.jsp",
+        data: `queryBy=teacherName&query=portland+state+university+${lastName}+${firstName}&facetSearch=true`
+      },
       function (response) {
         if (response) {
           const regex = new RegExp(lastName + "\\W?,\\W?" + firstName, "ig");
           const doc = document.createElement("html");
-          doc.innerHTML = response;
+          const cleaned = response.slice(0, response.indexOf(`<div class="mobileAppPromo">`));
+          doc.innerHTML = cleaned;
           const anchors = doc.getElementsByTagName("a");
           Array.from(anchors).forEach(function (anchor) {
             if (anchor.innerHTML.match(regex)) {
@@ -95,13 +97,14 @@ function getRatingLink(tid) {
   const url = "http://www.ratemyprofessors.com/ShowRatings.jsp";
   return new Promise((resolve, reject) => {
     chrome.runtime.sendMessage({
-      method: "POST",
-      url: `${url}`, //"http://www.ratemyprofessors.com/ShowRatings.jsp?tid=",
-      data: `tid=${tid}`
-    },
+        method: "POST",
+        url: `${url}`, //"http://www.ratemyprofessors.com/ShowRatings.jsp?tid=",
+        data: `tid=${tid}`
+      },
       function (response) {
         if (response) {
-          const element = response.match(
+          const cleaned = response.slice(0, response.indexOf(`<div class="mobileAppPromo">`));
+          const element = cleaned.match(
             /<div class="grade" title="">[0-9.]{3}<\/div>/g
           );
           const rating = element ? element[0].match(/[0-9.]{3}/g) : 'No Reviews';
@@ -110,7 +113,7 @@ function getRatingLink(tid) {
 
           var block = $(
             "#mainContent > div.right-panel > div.rating-breakdown",
-            response
+            cleaned
           ).text();
           const embed = getPopup(block);
           const ratingLink = {
@@ -172,8 +175,8 @@ function embedLink(professor, ratingLink) {
       const hex = getHexColor(ratingLink.rate);
       professor.innerHTML = `
       ${professor.innerText}
-      (<a id="${ratingLink.URL}" class="popUp" href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">${ratingLink.rate}
-                </a>)`;
+      <a id="${ratingLink.URL}" class="popUp" href=${ratingLink.URL} target="_blank" style="color: #${hex}" visited="color: #${hex}">(${ratingLink.rate})
+                </a>`;
       let stuff = ['tooltipster-noir'];
       const tipContent = getContent(ratingLink, stuff);
       if (ratingLink.rate !== 'No Reviews') {
