@@ -3,24 +3,30 @@
  *  Waits for DOM to be rendered
  *  When user clicks 'Search', waits for selector to be initialized
  */
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+async function handler() {
+  if (!($("#table1 > tbody > tr:nth-child(1)").length)) {
+    await delay(50);
+    console.log('test1');
+    return handler();
+  } else {
+    startScript();
+  }
+}
 $(document).ready(function () {
 
   $(
     "#search-go, #s2id_txt_subject, #txt_courseNumber, #txt_keywordlike, #txt_keywordexact"
   ).on("keypress click", function test(e) {
     if (e.which === 13 || e.type === "click") {
-      x = setTimeout(function handle() {
-        if ($("#table1 > tbody > tr:nth-child(1)").length) {
-          //If there is rendered selector, call startScript function
-          startScript(self.timerID);
-          $(
-            ".paging-control next ltr enabled, .paging-control previous ltr enabled"
-          ).click(test(e));
-        } else {
-          x = setTimeout(handle, 100);
-        }
-      }, 50);
+      return new Promise((resolve, reject) => {
+        resolve(handler());
+      });
     }
+    $(
+      ".paging-control next ltr enabled, .paging-control previous ltr enabled"
+    ).click(test(e));
   });
 });
 /** Grabs all name in instructor fields
