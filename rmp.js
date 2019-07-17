@@ -9,25 +9,27 @@ $(document).ready(function () {
     "#search-go, #s2id_txt_subject, #txt_courseNumber, #txt_keywordlike, #txt_keywordexact"
   ).on("keypress click", function test(e) {
     if (e.which === 13 || e.type === "click") {
-      self.timerId = setTimeout(function handle() {
+      x = setTimeout(function handle() {
         if ($("#table1 > tbody > tr:nth-child(1)").length) {
           //If there is rendered selector, call startScript function
-          clearTimeout(self.timerId);
-          startScript();
+          startScript(self.timerID);
           $(
             ".paging-control next ltr enabled, .paging-control previous ltr enabled"
           ).click(test(e));
         } else {
-          timerId = setTimeout(handle, 500);
+          x = setTimeout(handle, 100);
         }
-      }, 500);
+      }, 50);
     }
   });
 });
 /** Grabs all name in instructor fields
  * Puts them into an array and removes the
- * \n character in each block  */
+ * \n character in each block 
+ */
+
 function startScript() {
+  clearTimeout(x);
   const arr = $("td:nth-child(11)");
   Array.from(arr).forEach(function (subgroup) {
     var nameStr = subgroup.innerText;
