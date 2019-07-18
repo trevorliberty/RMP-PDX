@@ -3,6 +3,18 @@
  *  Waits for DOM to be rendered
  *  When user clicks 'Search', waits for selector to be initialized
  */
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+$(document).ready(function () {
+
+  $(
+    "#search-go, #s2id_txt_subject, #txt_courseNumber, #txt_keywordlike, #txt_keywordexact"
+  ).on("keypress click", function test(e) {
+    if (e.which === 13 || e.type === "click") {
+      return begin();
+    }
+  });
+});
 async function begin() {
   let checker = document.querySelectorAll("#table1 > tbody > tr:nth-child(1) > td.tooltipstered");
   if (checker.length && checker[0].innerText.match(/\d/)) {
@@ -14,7 +26,6 @@ async function begin() {
   });
 }
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 async function handler() {
   if (!($("#table1 > tbody > tr:nth-child(1)").length)) {
@@ -37,16 +48,6 @@ async function handler() {
   }
 }
 
-$(document).ready(function () {
-
-  $(
-    "#search-go, #s2id_txt_subject, #txt_courseNumber, #txt_keywordlike, #txt_keywordexact"
-  ).on("keypress click", function test(e) {
-    if (e.which === 13 || e.type === "click") {
-      return begin();
-    }
-  });
-});
 /** Grabs all name in instructor fields
  * Puts them into an array and removes the
  * \n character in each block 
