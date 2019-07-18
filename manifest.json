@@ -1,22 +1,23 @@
 {
 	"name": "Portland State RateMyProfessors",
 	"description": "Displays professors' RateMyProfessors ratings in the online course listings for Portland State University.",
-	"version": "0.0.2",
+	"version": "0.0.2.1",
 	"manifest_version": 2,
 	"permissions": [
 		"*://*.ratemyprofessors.com/*"
 	],
 	"icons": {
-		"16": "icon.png",
-		"48": "icon.png",
-		"128": "icon.png"
+		"16": "rmpIcon.png",
+		"48": "rmpIcon.png",
+		"128": "rmpIcon.png"
 	},
 	"content_scripts": [{
 		"exclude_matches": [
 			"https://app.banner.pdx.edu/assets/mobileAppPromo.png"
 		],
 		"matches": [
-			"https://app.banner.pdx.edu/*"
+			"https://app.banner.pdx.edu/StudentRegistrationSsb/ssb/classRegistration/classRegistration",
+			"https://app.banner.pdx.edu/StudentRegistrationSsb/ssb/classSearch/classSearch"
 		],
 		"css": [
 			"dist/css/tooltipster.bundle.css"
