@@ -22,23 +22,23 @@ async function handler() {
     return handler();
   } else {
     startScript();
+    $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.next.ltr.enabled', function () {
+      begin();
+    })
+    $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.previous.ltr.enabled', function () {
+      begin();
+    });
+    $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.last.ltr.enabled', function () {
+      begin();
+    });
+    $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.first.ltr.enabled', function () {
+      begin();
+    });
   }
 }
 
 $(document).ready(function () {
 
-  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.next.ltr.enabled', function () {
-    begin();
-  })
-  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.previous.ltr.enabled', function () {
-    begin();
-  });
-  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.last.ltr.enabled', function () {
-    begin();
-  });
-  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.first.ltr.enabled', function () {
-    begin();
-  });
   $(
     "#search-go, #s2id_txt_subject, #txt_courseNumber, #txt_keywordlike, #txt_keywordexact"
   ).on("keypress click", function test(e) {
