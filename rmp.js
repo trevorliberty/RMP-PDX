@@ -6,7 +6,7 @@
 async function begin() {
   let checker = document.querySelectorAll("#table1 > tbody > tr:nth-child(1) > td.tooltipstered");
   if (checker.length && checker[0].innerText.match(/\d/)) {
-    await delay(200);
+    await delay(50);
     return begin();
   }
   return new Promise((resolve, reject) => {
@@ -27,23 +27,23 @@ async function handler() {
 
 $(document).ready(function () {
 
-  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.next.ltr.enabled', function (e) {
+  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.next.ltr.enabled', function () {
     begin();
   })
-  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.previous.ltr.enabled', function (e) {
+  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.previous.ltr.enabled', function () {
     begin();
   });
-  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.last.ltr.enabled', function (e) {
+  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.last.ltr.enabled', function () {
     begin();
   });
-  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.first.ltr.enabled', function (e) {
+  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.first.ltr.enabled', function () {
     begin();
   });
   $(
     "#search-go, #s2id_txt_subject, #txt_courseNumber, #txt_keywordlike, #txt_keywordexact"
   ).on("keypress click", function test(e) {
     if (e.which === 13 || e.type === "click") {
-      return begin(0);
+      return begin();
     }
   });
 });
