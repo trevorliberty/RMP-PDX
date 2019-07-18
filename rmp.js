@@ -3,30 +3,48 @@
  *  Waits for DOM to be rendered
  *  When user clicks 'Search', waits for selector to be initialized
  */
+async function begin() {
+  let checker = document.querySelectorAll("#table1 > tbody > tr:nth-child(1) > td.tooltipstered");
+  if (checker.length && checker[0].innerText.match(/\d/)) {
+    await delay(200);
+    return begin();
+  }
+  return new Promise((resolve, reject) => {
+    resolve(handler());
+  });
+}
+
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 async function handler() {
   if (!($("#table1 > tbody > tr:nth-child(1)").length)) {
     await delay(50);
-    console.log('test1');
     return handler();
   } else {
     startScript();
   }
 }
+
 $(document).ready(function () {
 
+  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.next.ltr.enabled', function (e) {
+    begin();
+  })
+  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.previous.ltr.enabled', function (e) {
+    begin();
+  });
+  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.last.ltr.enabled', function (e) {
+    begin();
+  });
+  $(document).on('click', '#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.first.ltr.enabled', function (e) {
+    begin();
+  });
   $(
     "#search-go, #s2id_txt_subject, #txt_courseNumber, #txt_keywordlike, #txt_keywordexact"
   ).on("keypress click", function test(e) {
     if (e.which === 13 || e.type === "click") {
-      return new Promise((resolve, reject) => {
-        resolve(handler());
-      });
+      return begin(0);
     }
-    $(
-      ".paging-control next ltr enabled, .paging-control previous ltr enabled"
-    ).click(test(e));
   });
 });
 /** Grabs all name in instructor fields
@@ -35,7 +53,6 @@ $(document).ready(function () {
  */
 
 function startScript() {
-  clearTimeout(x);
   const arr = $("td:nth-child(11)");
   Array.from(arr).forEach(function (subgroup) {
     var nameStr = subgroup.innerText;
