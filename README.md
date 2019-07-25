@@ -7,6 +7,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Demo
 
+Hover over any professor in banweb to see their ratings:
+<a href="https://imgflip.com/gif/36gjdh"><img src="https://i.imgflip.com/36gjdh.gif" title="made at imgflip.com"/></a>
 
 ## Authors
 * Trevor Liberty
