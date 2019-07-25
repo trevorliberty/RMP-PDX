@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 ## Demo
 
 Hover over any professor in banweb to see their ratings:
-<a href="https://imgflip.com/gif/36gjdh"><img src="https://i.imgflip.com/36gjdh.gif" title="made at imgflip.com"/></a>
+<iframe src='https://gfycat.com/ifr/SickUnhappyEider' frameborder='0' scrolling='no' allowfullscreen width='640' height='404'></iframe>
 
 ## Authors
 * Trevor Liberty
