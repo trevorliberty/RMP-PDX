@@ -9,7 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 Hover over any professor in banweb to see their ratings:
 
-![Imgur](https://i.imgur.com/ur8dMKt.gif)
+![](https://i.imgur.com/ur8dMKt.gif)
 
 
 ## Authors
