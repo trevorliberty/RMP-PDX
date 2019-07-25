@@ -1,16 +1,21 @@
 # RMP-PDX
-Rate My Professor Chrome Extension for Portland State University
+Rate My Professor Extension for Portland State University
 
 ## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Download [here](https://chrome.google.com/webstore/detail/portland-state-ratemyprof/hpfjccopidfknnnfogdldecealjmkaoc?hl=en)
+or search for us on the Google Chrome Webstore
 
 ## Demo
 
 Hover over any professor in banweb to see their ratings:
 
-![](https://i.imgur.com/ur8dMKt.gif)
+![](colors.gif)
 
+Jump directly to the ratings page
+![](ratings.gif)
+
+Rate the selected professor
+![](ratem.gif)
 
 ## Authors
 * Trevor Liberty
