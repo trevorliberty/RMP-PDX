@@ -8,6 +8,7 @@ Download [here](https://chrome.google.com/webstore/detail/portland-state-ratemyp
 or search for us on the Google Chrome Webstore
 
 **Firefox**
+
 \*Download [here](Extension.xpi) when you are running Firefox.
 
 \* *This is not an approved addon for Firefox, and there will be a warning that pops up when trying to download*
