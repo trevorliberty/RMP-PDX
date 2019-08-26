@@ -9,7 +9,7 @@ or search for us on the Google Chrome Webstore
 
 **Firefox**
 
-\*Download [here](Extension.xpi) and open it with Firefox
+Download [here](Extension.xpi) and open it with Firefox\*
 
 \**This is not an approved addon*
 ## Demo
