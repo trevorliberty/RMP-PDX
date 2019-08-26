@@ -9,9 +9,9 @@ or search for us on the Google Chrome Webstore
 
 **Firefox**
 
-\*Download [here](Extension.xpi) when you are running Firefox.
+\*Download [here](Extension.xpi) and open it with Firefox
 
-\* *This is not an approved addon for Firefox, and there will be a warning that pops up when trying to download*
+\**This is not an approved addon for Firefox
 ## Demo
 
 Hover over any professor in banweb to see their ratings:
