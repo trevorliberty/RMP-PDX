@@ -11,7 +11,7 @@ or search for us on the Google Chrome Webstore
 
 \*Download [here](Extension.xpi) and open it with Firefox
 
-\**This is not an approved addon for Firefox
+\**This is not an approved addon*
 ## Demo
 
 Hover over any professor in banweb to see their ratings:
