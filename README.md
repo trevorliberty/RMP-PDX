@@ -2,9 +2,12 @@
 Rate My Professor Extension for Portland State University
 
 ## Getting Started
+**Chrome**
 Download [here](https://chrome.google.com/webstore/detail/portland-state-ratemyprof/hpfjccopidfknnnfogdldecealjmkaoc?hl=en)
 or search for us on the Google Chrome Webstore
-
+**Firefox**
+\*Download [here](Extension.xpi) when you are running Firefox.
+*This is not an approved addon for Firefox, and there will be a warning that pops up when trying to download
 ## Demo
 
 Hover over any professor in banweb to see their ratings:
