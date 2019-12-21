@@ -5,28 +5,37 @@
  */
 $(document).ready(function() {
   $(
-    "#search-go, #s2id_txt_subject, #txt_courseNumber, #txt_keywordlike, #txt_keywordexact"
+    "#search-go, #s2id_txt_subject, #txt_courseNumber, #txt_keywordlike, #txt_keywordexact, button[class^='paging']"
   ).on("keypress click", function test(e) {
     if (e.which === 13 || e.type === "click") {
-      self.timerId = setTimeout(function handle() {
+      timerId = setInterval(function() {
         if ($("#table1 > tbody > tr:nth-child(1)").length) {
           //If there is rendered selector, call startScript function
-          clearTimeout(self.timerId);
+          $(
+            "#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.next.ltr.enabled"
+          ).click(function(e) {
+            clearInterval(timerId);
+            test(e);
+            //alert("WTF");
+          });
+          clearInterval(timerId);
           startScript();
           $(
             ".paging-control next ltr enabled, .paging-control previous ltr enabled"
           ).click(test(e));
-        } else {
-          timerId = setTimeout(handle, 500);
+          //return;
+          clearInterval(timerId);
         }
-      }, 1000);
+      }, 500);
     }
   });
 });
+
 /** Grabs all name in instructor fields
  * Puts them into an array and removes the
  * \n character in each block  */
 function startScript() {
+  //clearInterval(id);
   const arr = $("td:nth-child(11)");
   Array.from(arr).forEach(function(subgroup) {
     var nameStr = subgroup.innerText;
@@ -44,7 +53,7 @@ function startScript() {
           return embedLink(subgroup, ratingLink);
         })
         .catch(e => {
-          console.log(e);
+          e;
         });
     });
   });
@@ -70,7 +79,7 @@ function getTID(professor) {
         data: `queryBy=teacherName&query=portland+state+university+${lastName}+${firstName}&facetSearch=true`
       },
       function(response) {
-        //console.log(response);
+        //(response);
         if (response) {
           const regex = new RegExp(lastName + "\\W?,\\W?" + firstName, "ig");
           const doc = document.createElement("html");
@@ -84,7 +93,7 @@ function getTID(professor) {
           Array.from(anchors).forEach(function(anchor) {
             if (anchor.innerHTML.match(regex)) {
               tid = anchor.getAttribute("href").match(/[0-9]{1,}/g);
-              console.log("TTTIIDDD" + tid);
+              "TTTIIDDD" + tid;
               resolve(tid ? tid[0] : null);
             }
           });
@@ -101,7 +110,7 @@ function getTID(professor) {
  * @returns {object}
  */
 function getRatingLink(tid) {
-  console.log("TID" + tid);
+  "TID" + tid;
   const url = "http://www.ratemyprofessors.com/ShowRatings.jsp";
   return new Promise((resolve, reject) => {
     chrome.runtime.sendMessage(
@@ -111,7 +120,7 @@ function getRatingLink(tid) {
         //data: `tid=${tid}`
       },
       function(response) {
-        //console.log(response);
+        //(response);
         if (response) {
           const cleaned = response.slice(
             0,
@@ -120,23 +129,15 @@ function getRatingLink(tid) {
           element = cleaned.match(
             /div class="RatingValue__Numerator-.*">[0-9.]{3}<\/div>/g
           )[0];
-          element = element.match(/[0-9.]{3}/g);
-          //element = $(`[class^="RatingValue"`).innerText;
-          //console.log("RATING" + element[0]);
-          if (element) {
-            console.log(element);
-          }
-          const rating = element
-            ? element[0].match(/[0-9.]{3}/g)
-            : "No Reviews";
+          let domparser = new DOMParser().parseFromString(cleaned, "text/html");
+          let x = $(`[class^="RatingValue__Numerator"]`, domparser).text();
+          let rating = x ? x : "No Reviews";
           const link = `${url + "?tid=" + tid}`;
           const rateLink = `https://www.ratemyprofessors.com/AddRating.jsp?tid=${tid}`;
+          const showLink = `https://www.ratemyprofessors.com/ShowRatings.jsp?tid=${tid}`;
 
-          var block = $(
-            "#mainContent > div.right-panel > div.rating-breakdown",
-            cleaned
-          ).text();
-          const embed = getPopup(block);
+          var block = $('[class^="TeacherInfo"]', cleaned).html();
+          const embed = getPopup(block, showLink);
           const ratingLink = {
             rate: rating,
             URL: link,
@@ -155,9 +156,10 @@ function getRatingLink(tid) {
  * @param {string} block
  * @returns {object}
  */
-function getPopup(block) {
+function getPopup(block, showLink) {
   var str = block.substring(block.indexOf("Overall Quality")).trim();
   var arr = str.split("\n");
+  //arr = block;
   (function() {
     arr = arr.map(el => el.trim());
     arr = arr.filter(function(e) {
@@ -175,10 +177,20 @@ function getPopup(block) {
   Tags.length = 4;
   Tags.shift();
   Tags = Tags.join(` `);
+  //arr[0] = "<div>" + arr[0];
+  //("ARRRR" + arr[0]);
+  let domparser = new DOMParser().parseFromString(arr[0], "text/html");
+  //console.dir("DOX" + dox);
+  //let tester = $('[class^="Buttons"]', dox).html("");
+  //let doccer = $(dox).html();
+  //console.dir("TESETER" + tester);
+  $("a, button, img", domparser)
+    .contents()
+    .unwrap();
+  $(`[class^="NameTitle"]`).css("padding", "5rem!important");
+  domparser.body.innerHTML;
   const embed = {
-    overall: arr[0] + ": " + arr[1],
-    takeAgain: arr[2] + ": " + arr[3],
-    difficulty: arr[4] + ": " + arr[5],
+    overall: `<iframe style='padding: 0; margin: 0; overflow-y: hidden; border-radius: 9px; width: 32rem; height: 32rem; border: none' src=${showLink}></iframe>`,
     tags: Tags
   };
   return embed;
@@ -191,6 +203,7 @@ function getPopup(block) {
  */
 function embedLink(professor, ratingLink) {
   if (ratingLink) {
+    //(ratingLink);
     let temp = ratingLink.popUp;
     if (!professor.textContent.includes(ratingLink.rate)) {
       const hex = getHexColor(ratingLink.rate);
@@ -215,7 +228,7 @@ function embedLink(professor, ratingLink) {
         });
       }
     } else {
-      console.log(`Already embedded rating for ${professor.innerText}`);
+      `Already embedded rating for ${professor.innerText}`;
     }
   }
 }
@@ -227,52 +240,19 @@ function embedLink(professor, ratingLink) {
 function getContent(ratingLink, themeArray) {
   let shadow = "";
   let tempObj = ratingLink.popUp;
-  if (ratingLink.rate >= 4) {
-    themeArray.push(
-      "tooltipster-noir-thing",
-      "tooltipster-noir-arrBody1",
-      "tooltipster-noir-arrBorder1"
-    );
-    shadow = "#afcb34";
-  } else if (ratingLink.rate >= 3) {
-    themeArray.push(
-      "tooltipster-noir-thing1",
-      "tooltipster-noir-arrBody2",
-      "tooltipster-noir-arrBorder2"
-    );
-    shadow = "#dec048";
-  } else {
-    themeArray.push(
-      "tooltipster-noir-thing2",
-      "tooltipster-noir-arrBody3",
-      "tooltipster-noir-arrBorder3"
-    );
-    shadow = "#c73454";
-  }
+  themeArray.push(
+    "tooltipster-noir-thing2",
+    "tooltipster-noir-arrBody3",
+    "tooltipster-noir-arrBorder3"
+  );
+  shadow = "#c73454";
+
   var tipContent = `
     <div>
       <h1>
         ${tempObj.overall}
       </h1>
-      <h2>
-        ${tempObj.takeAgain}
-      </h2>
-      <h3>
-        ${tempObj.difficulty}
-      </h3>
     </div>`;
-  if (tempObj.tags.length > 20) {
-    tipContent += `
-         <h3 style="margin: 0; padding:0">Top tags:</h3>
-          <ul style="padding-bottom: 20px; padding-left: 0; margin:0; text-shadow:2px 2px ${shadow}">
-          ${tempObj.tags}
-          </ul>
-          `;
-  }
-  tipContent += `
-        <div><a style="color:rgb(253, 253, 253)" target="_blank" href="${ratingLink.URL}#sratingComments">Go to professor's comments</a></div>
-        <div><a style="	color: #ffffff" target="_blank" href="${ratingLink.rateUrl}#rateProfessorForm">Rate this professor</a></div>
-    `;
   return tipContent;
 }
 
