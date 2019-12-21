@@ -11,8 +11,10 @@ $(document).ready(function() {
       timerId = setInterval(function() {
         if ($("#table1 > tbody > tr:nth-child(1)").length) {
           //If there is rendered selector, call startScript function
+          //#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.first.ltr.enabled
           $(
-            "#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.next.ltr.enabled"
+            "[id^='searchResultsTable']"
+            //"#searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.next.ltr.enabled, #searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.previous.ltr.enabled, #searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.first.ltr.enabled, #searchResultsTable > div.bottom.ui-widget-header > div > button.paging-control.first.ltr.enabled"
           ).click(function(e) {
             clearInterval(timerId);
             test(e);
